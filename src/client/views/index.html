@@ -7,22 +7,28 @@
     <link rel="stylesheet" href="/main.css">
 </head>
 <body>
-    <header>News NLP Analysis Tool</header>
+    <header>
+        <p>News NLP Analysis Tool</p>
+    </header>
 
     <div class="container">
 
-        <div class="results" id="sentimentResult">
-            <!-- Results will be displayed here -->
-        </div>
+        
         <div class="form-box">
             <h1>News NLP Analysis Tool</h1>
             <form id="urlForm">
-                <label for="URI">Analyze a News Article URL:</label>
-                <input type="text" id="URI" name="URI" placeholder="Enter a valid URL">
+           
+                <input type="text" id="URI" name="URI" width="100%" placeholder="Enter a valid URL">
                 <button type="submit">Analyze Now</button>
             </form>
             <div id="error" style="color: red;"></div>
+
+            <div class="results" id="sentimentResult">
+            
+            </div>
+
         </div>
+        
     </div>
     <footer><p>By @Alaa_Shubita</p></footer>
 

@@ -1,4 +1,3 @@
-// src/client/js/displayRes.js
 function displayRes(Polarity, agreement, subjectivity, confidence, irony) {
     const resultElement = document.getElementById('sentimentResult');
     resultElement.innerHTML = '';

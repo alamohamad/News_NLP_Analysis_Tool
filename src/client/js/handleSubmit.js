@@ -1,11 +1,18 @@
-import { displayRes } from './displayRes.js';
+import { validateUrl } from './checkURL.js';
 
 const handleSubmit = async (e) => {
     e.preventDefault();
     const url = document.getElementById("URI").value;
 
     if (!url) {
+        alert("Please enter a URL");
         showError("Please enter a URL");
+        return;
+    }
+
+    if (!validateUrl(url)) {
+        alert("Please enter a valid URL");
+        showError("Please enter a valid URL");
         return;
     }
 
@@ -27,14 +34,9 @@ const handleSubmit = async (e) => {
         displayRes(data.score_tag, data.agreement, data.subjectivity, data.confidence, data.irony);
     } catch (error) {
         console.error('Error fetching analysis:', error);
-        showError(`Error: ${error.message}`);
+        alert(`Error: ${error.message}`);
+        showError("Error: HTTP error! Status: " + (error.message || "unknown"));
     }
-};
-
-const showError = (message) => {
-    const errorDiv = document.getElementById("error");
-    errorDiv.textContent = message;
-    errorDiv.style.display = "block";
 };
 
 export { handleSubmit };

@@ -1,90 +1,31 @@
-body {
-    font-family: 'Arial', sans-serif;
+body, html {
     margin: 0;
     padding: 0;
-    background: #1c0a1a; /* Dark Background */
-    color: #fff; /* White text color */
+    box-sizing: border-box;
+    height: 100%;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
     display: flex;
     flex-direction: column;
-    min-height: 80vh;
 }
 
 .container {
+    width: 100%;
+    max-width: 400px;
     display: flex;
-    justify-content: center; /* Center the content horizontally */
-    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-}
-
-.content {
-    display: flex;
-    justify-content: space-between;
-    width: 50%; /* Reduce the width of the content */
-    max-width: 50%;
-    margin: auto;
-    padding: 20px;
-    background-color: #2b1a25; /* Darker background for content area */
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-}
-
-.results, .form-box {
-    flex: 1;
-    background-color: #333;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    margin: auto; 
 }
 
 .form-box {
-    background-color: #3a102a; /* Dark pink for the form */
-}
-
-header, footer {
-    background: #3a102a; /* Dark pink background */
-    color: #fff;
-    padding: 10px;
     text-align: center;
-}
-
-header {
-    font-size: 2em;
-    font-weight: bold;
-}
-
-footer {
-    font-size: 0.9em;
-}
-
-h1 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
 }

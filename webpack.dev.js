@@ -1,6 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
+import WorkboxPlugin from 'workbox-webpack-plugin';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,11 +13,11 @@ export default {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
-        publicPath: '/', // Ensure publicPath is set for correct asset loading
+        publicPath: '/', 
         libraryTarget: 'var',
         library: 'Client'
     },
-    devtool: 'inline-source-map', // Source maps for easier debugging
+    devtool: 'inline-source-map', 
     module: {
         rules: [
             {
@@ -32,15 +33,11 @@ export default {
             {
                 test: /\.scss$/,
                 use: [
-                    'style-loader', // Injects styles into the DOM
-                    'css-loader',   // Resolves CSS imports
-                    'sass-loader'   // Compiles Sass to CSS
+                    'style-loader', 
+                    'css-loader',   
+                    'sass-loader'   
                 ]
                 
-            },
-            {
-                test: /\.(jpg|jpeg|png|gif|svg)$/,
-                type: 'asset/resource' // Handles image files
             }
         ]
     },
@@ -49,7 +46,12 @@ export default {
             template: './src/client/views/index.html',
             filename: 'index.html'
         }),
-        new webpack.HotModuleReplacementPlugin() // Enables HMR
+        new webpack.HotModuleReplacementPlugin(), 
+        new WorkboxPlugin.GenerateSW({
+            swDest: 'service-worker.js',
+            clientsClaim: true,
+            skipWaiting: true,
+        })
     ],
     devServer: {
         port: 8080,

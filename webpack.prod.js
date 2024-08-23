@@ -37,13 +37,7 @@ export default {
                     'sass-loader'
                 ],
             },
-            {
-                test: /\.(jpg|jpeg|png|gif|svg)$/,
-                type: 'asset/resource',
-                generator: {
-                    filename: 'assets/[name][ext][query]'
-                }
-            }
+            
         ]
     },
     plugins: [
