@@ -1,10 +1,8 @@
-import axios from "axios";
 import { displayRes } from './displayRes';
 
 const handleSubmit = async (e) => {
     e.preventDefault();
-    const input = document.getElementById("URI");
-    const url = input.value;
+    const url = document.getElementById("URI").value;
 
     if (!url) {
         showError("Please enter a URL");
@@ -12,23 +10,25 @@ const handleSubmit = async (e) => {
     }
 
     try {
-        const response = await axios.post('http://localhost:8000/api/sentiment', { url });
-        console.log('API Response:', response.data);
-        displayResults(response.data); // Ensure you're calling the correct function to display results
+        const response = await fetch('http://localhost:8000/api/sentiment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('API Response:', data);
+        displayRes(data.score_tag, data.agreement, data.subjectivity, data.confidence, data.irony);
     } catch (error) {
         console.error('Error fetching analysis:', error);
-        showError("Error: HTTP error! Status: " + (error.response ? error.response.status : "unknown"));
+        showError("Error: HTTP error! Status: " + (error.message || "unknown"));
     }
-};
-
-const displayResults = (data) => {
-    if (data.msg) {
-        showError(data.msg);
-        return;
-    }
-
-    // Call the displayRes function to render the results
-    displayRes(data.score_tag, data.agreement, data.subjectivity, data.confidence, data.irony);
 };
 
 const showError = (message) => {

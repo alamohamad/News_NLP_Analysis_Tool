@@ -1,6 +1,6 @@
 function displayRes(Polarity, agreement, subjectivity, confidence, irony) {
-    const resultElement = document.getElementById('resultsList');
-    resultElement.innerHTML = '';  // Clear previous results
+    const resultElement = document.getElementById('sentimentResult');
+    resultElement.innerHTML = '';
 
     const polarityMap = {
         'P+': 'Strong Positive',
@@ -20,9 +20,19 @@ function displayRes(Polarity, agreement, subjectivity, confidence, irony) {
     ];
 
     results.forEach(result => {
-        const item = document.createElement('li');
-        item.textContent = `${result.name}: ${result.value}`;
-        resultElement.appendChild(item);
+        const box = document.createElement('div');
+        box.className = 'result-box';
+        const title = document.createElement('span');
+        title.textContent = result.name + ": ";
+        title.style.fontWeight = 'bold';
+
+        const value = document.createElement('span');
+        value.textContent = result.value || '';
+        value.style.fontWeight = 'normal';
+
+        box.appendChild(title);
+        box.appendChild(value);
+        resultElement.appendChild(box);
     });
 }
 

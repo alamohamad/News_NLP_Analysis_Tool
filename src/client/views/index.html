@@ -4,26 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News NLP Analysis Tool</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
     <div class="container">
-        <form id="myForm" method="post" onsubmit="return Client.handleSubmit(event)">
-            <label for="URI">Enter an Article URL:</label>
-            <input type="text" id="URI" name="URI" />
-            <button type="submit" value="Analyze">Analyze</button>
+        <h1>News NLP Analysis Tool</h1>
+        <form id="urlForm">
+            <label for="URI">Analyze a News Article URL:</label>
+            <input type="text" id="URI" name="URI" placeholder="Enter a valid URL">
+            <button type="submit">Analyze Now</button>
         </form>
+        <div id="error" style="color: red;"></div>
+        <div id="sentimentResult"></div>
     </div>
-    <div id="error" style="display: none;"></div>
-    <div id="results">
-        <h2>Results:</h2>
-        <ul id="resultsList">
-            <li id="agreement"></li>
-            <li id="subjectivity"></li>
-            <li id="confidence"></li>
-            <li id="irony"></li>
-            <li id="score_tag"></li>
-            <!-- Add more list items for additional data fields if needed -->
-        </ul>
-    </div>
+    <script src="bundle.js"></script>
 </body>
 </html>
