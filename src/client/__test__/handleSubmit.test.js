@@ -3,6 +3,7 @@
  */
 
 import { handleSubmit } from '../js/handleSubmit.js';
+global.alert = jest.fn();
 
 beforeEach(() => {
     document.body.innerHTML = `

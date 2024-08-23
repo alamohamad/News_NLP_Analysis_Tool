@@ -1,4 +1,11 @@
 import { validateUrl } from './checkURL.js';
+import { displayRes } from './displayRes.js';
+
+const showError = (message) => {
+    const errorDiv = document.getElementById("error");
+    errorDiv.textContent = message;
+    errorDiv.style.display = "block";
+};
 
 const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,8 +41,7 @@ const handleSubmit = async (e) => {
         displayRes(data.score_tag, data.agreement, data.subjectivity, data.confidence, data.irony);
     } catch (error) {
         console.error('Error fetching analysis:', error);
-        alert(`Error: ${error.message}`);
-        showError("Error: HTTP error! Status: " + (error.message || "unknown"));
+        showError(`Error: ${error.message}`);
     }
 };
 
