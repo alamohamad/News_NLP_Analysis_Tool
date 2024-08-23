@@ -1,24 +1,32 @@
-const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const path = require("path");
-const https = require("https");
-const querystring = require("querystring");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import path from "path";
+import https from "https";
+import { fileURLToPath } from "url";
+import querystring from "querystring";
 
+// Load environment variables from .env file
 dotenv.config();
+
+// Determine the directory name for ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 8000;
 const apiKey = process.env.API_KEY;
 
+// Middleware setup
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('dist'));
 
+// Route to handle sentiment analysis requests
 app.post('/api/sentiment', (req, res) => {
     const { url } = req.body;
-    
+
     if (!url) {
         return res.status(400).send('URL is required');
     }
@@ -69,10 +77,12 @@ app.post('/api/sentiment', (req, res) => {
     request.end();
 });
 
+// Route to serve the main HTML file
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve('dist', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });

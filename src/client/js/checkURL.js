@@ -1,7 +1,4 @@
-const validUrl = require('valid-url');
-
-const isValidUrl = (url) => Boolean(validUrl.isWebUri(url));
-
-module.exports = {
-    isValidUrl,
-};
+export function validateUrl(url) {
+    const regex = /^(ftp|http|https):\/\/[^ "]+$/;
+    return regex.test(url);
+}

@@ -1,4 +1,4 @@
-import { displayRes } from './displayRes';
+import { displayRes } from './displayRes.js';
 
 const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const handleSubmit = async (e) => {
         displayRes(data.score_tag, data.agreement, data.subjectivity, data.confidence, data.irony);
     } catch (error) {
         console.error('Error fetching analysis:', error);
-        showError("Error: HTTP error! Status: " + (error.message || "unknown"));
+        showError(`Error: ${error.message}`);
     }
 };
 

@@ -1,22 +1,61 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebPackPlugin from 'html-webpack-plugin';
+import WorkboxPlugin from 'workbox-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 
-module.exports = merge(common, {
+export default {
+    entry: './src/client/index.js',
     mode: 'production',
     output: {
-        filename: 'bundle.js',  // Ensure no hash here
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve('dist'),
+        filename: 'bundle.js',
         libraryTarget: 'var',
-        library: 'Client',
+        library: 'Client'
     },
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: 'main.css',  // Ensure no hash here
-        }),
-    ],
     optimization: {
         minimize: true,
+        minimizer: [
+            new TerserPlugin(),
+            new CssMinimizerPlugin()
+        ],
     },
-});
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: 'babel-loader'
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ],
+            },
+            {
+                test: /\.(jpg|jpeg|png|gif|svg)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/[name][ext][query]'
+                }
+            }
+        ]
+    },
+    plugins: [
+        new HtmlWebPackPlugin({
+            template: './src/client/views/index.html',
+            filename: 'index.html',
+        }),
+        new WorkboxPlugin.GenerateSW({
+            swDest: 'service-worker.js',
+            clientsClaim: true,
+            skipWaiting: true,
+        }),
+        new MiniCssExtractPlugin({ filename: '[name].css' })
+    ]
+};
